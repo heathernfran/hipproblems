@@ -1,5 +1,6 @@
 const http = require('http');
 
+const localUrl = 'http://localhost:9000/scrapers/';
 const providers = ['Expedia', 'Orbitz', 'Priceline', 'Travelocity', 'Hilton'];
 
 providers.forEach((item) => {
@@ -7,7 +8,6 @@ providers.forEach((item) => {
 });
 
 function getProviderData(url) {
-  const localUrl = 'http://localhost:9000/scrapers/';
 
   let concatUrl = localUrl.concat(url);
 
