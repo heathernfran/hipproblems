@@ -1,4 +1,3 @@
-const path = require('path');
 const http = require('http');
 const port = 8000;
 
@@ -12,7 +11,6 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, () => {
   console.log(`Listening on port ${port}`);
-  path.resolve('/main.js', '/hotels/search');
   providers.forEach((item) => {
     getProviderData(item);
   });
