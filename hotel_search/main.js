@@ -1,10 +1,21 @@
+const path = require('path');
 const http = require('http');
+const port = 8000;
 
 const localUrl = 'http://localhost:9000/scrapers/';
 const providers = ['Expedia', 'Orbitz', 'Priceline', 'Travelocity', 'Hilton'];
 
-providers.forEach((item) => {
-  getProviderData(item);
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  console.log(`Created server`);
+});
+
+server.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+  path.resolve('/main.js', '/hotels/search');
+  providers.forEach((item) => {
+    getProviderData(item);
+  });
 });
 
 function getProviderData(url) {
