@@ -1,0 +1,14 @@
+doctype html
+html(lang="en")
+  head
+    title= "Hotel Search Results"
+    body
+      h1 Search Results
+      p= results
+      //- .results
+        results
+      //- ul
+        each result in results
+          li= result
+        else
+          li No values available

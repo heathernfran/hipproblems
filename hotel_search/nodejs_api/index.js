@@ -1,6 +1,8 @@
 const http = require('http');
 const port = 8000;
 
+const JSDOM = require('jsdom');
+
 const localUrl = 'http://localhost:9000/scrapers/';
 const providers = ['Expedia', 'Orbitz', 'Priceline', 'Travelocity', 'Hilton'];
 
@@ -22,7 +24,7 @@ function getProviderData(url) {
 
   http.get(concatUrl, (response) => {
     const { statusCode } = response;
-    
+
     let error;
     if (statusCode != 200) {
       error = new Error(`Request failed. Status Code: ${statusCode}`);
@@ -32,19 +34,21 @@ function getProviderData(url) {
       response.resume();
       return;
     }
-    
+
     response.setEncoding('utf8');
     let rawData = '';
     response.on('data', (chunk) => { rawData += chunk; });
     response.on('end', () => {
       try {
         const parsedData = JSON.parse(rawData);
-        console.log(parsedData);
+        const dom = new JSDOM(`document.getElementById('app').innerHTML += parsedData`);
+        // dom.innerHTML = dom.innerHTML + parsedData;
+        // console.log(parsedData);
       } catch (e) {
         console.log(`Error on getting data: ${e}`)
       }
     });
-    
+
   }).on('error', (e) => {
     console.log(`Got error: ${e.message}`);
   });
